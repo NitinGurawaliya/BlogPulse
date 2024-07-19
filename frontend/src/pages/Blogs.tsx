@@ -13,7 +13,12 @@ export const Blogs = () => {
       <BlogSkeleton />
       <BlogSkeleton />
       <BlogSkeleton />
+
       <BlogSkeleton />
+      <BlogSkeleton />
+      <BlogSkeleton />
+      <BlogSkeleton />
+      
     </div>
     </div>
 
