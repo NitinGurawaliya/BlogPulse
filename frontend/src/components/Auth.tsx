@@ -10,7 +10,6 @@ export const Auth = ({type}:{type:"signup" | "signin"}) => {
     name:"",
     username:"",
     password:""
-
   });
 
   async function  sendRequest  (){
