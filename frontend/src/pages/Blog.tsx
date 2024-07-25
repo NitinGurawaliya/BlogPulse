@@ -1,5 +1,5 @@
 
-import { Appbar } from "../components/Appbar"
+// import { Appbar } from "../components/Appbar"
 import { FullBlog } from "../components/FullBlog"
 import { useBlog } from "../hooks" 
 import { useParams } from "react-router-dom"
@@ -11,7 +11,7 @@ export const Blog = () => {
   if (loading) {
     return (
       <div>
-        <Appbar />
+        {/* <Appbar /> */}
         <div className="h-screen flex flex-col justify-center">
           <div className="flex justify-center">
             <Spinner />
@@ -23,7 +23,6 @@ export const Blog = () => {
 
   return (
     <div>
-      <Appbar />
       {blog ? <FullBlog blog={blog} /> : <div>Blog not found</div>}
     </div>
   )
