@@ -1,5 +1,5 @@
-import { userRouter } from './routes/user.routes'
-import { blogRouter } from './routes/blog.routes'
+import { userRouter } from './router/user.routes'
+import { blogRouter } from './router/blog.routes'
 
 import { Hono } from 'hono'
 
