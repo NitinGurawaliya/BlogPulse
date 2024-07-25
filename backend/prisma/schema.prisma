@@ -20,6 +20,7 @@ model User{
   username String @unique
   password String
   blogs   Blog[]
+  comment Comment[]
 }
 
 model Blog{
@@ -29,4 +30,23 @@ model Blog{
   title             String 
   published         Boolean @default(false)
   author            User @relation(fields: [authorId],references: [id])
+  comment           Comment[]
+  createdAt         DateTime @default(now())
+  tags              Tags[]
+}
+
+model Comment{
+  id                Int       @id @default(autoincrement())
+  content           String
+  userId            Int
+  postId            Int 
+  user              User @relation(fields: [userId],references: [id])
+  post              Blog @relation(fields: [postId],references: [id])
+
+}
+
+model Tags {
+  id Int @id @default(autoincrement())
+  tag String @unique
+  post Blog[]
 }
