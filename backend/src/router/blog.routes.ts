@@ -14,7 +14,7 @@ import { authMiddleware } from "../middleware/user"
 }>()
 
 
-blogRouter.get('/bulk',getAllBlogs)
+blogRouter.get('/bulk',authMiddleware,getAllBlogs)
 blogRouter.post('/',authMiddleware,createBlog )
 blogRouter.put('/',authMiddleware,editBlog)
 blogRouter.get('/:id',authMiddleware,getBlogById)
