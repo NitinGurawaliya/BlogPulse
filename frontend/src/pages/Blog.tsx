@@ -23,6 +23,7 @@ export const Blog = () => {
 
   return (
     <div>
+      <Appbar />
       {blog ? <FullBlog blog={blog} /> : <div>Blog not found</div>}
     </div>
   )
