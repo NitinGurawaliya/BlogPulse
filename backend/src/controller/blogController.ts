@@ -30,7 +30,7 @@ export async function createBlog(c:Context){
       })
      } catch (error) {
       msg:"Error while creating the blog "
-      console.log("Error in creating blog ",error)
+            console.log("Error in creating blog ",error)
 
      }
     
@@ -125,6 +125,19 @@ export async function getBlogById(c:Context) {
       author:{
         select:{
           name:true
+        }
+      },
+      comment:{
+        select:{
+          id:true,
+          content:true,
+          userId:true,
+          user:{
+            select:{
+              name:true
+            }
+          }
+
         }
       }
      }
