@@ -31,6 +31,7 @@ export async function createBlog(c:Context){
      } catch (error) {
       msg:"Error while creating the blog "
       console.log("Error in creating blog ",error)
+
      }
     
     }
