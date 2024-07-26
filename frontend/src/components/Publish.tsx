@@ -15,7 +15,7 @@ export const Publish = () => {
       <div className="max-w-screen-lg w-full">
         <input type="text " onChange={(e)=>{
           setTitle(e.target.value)
-        }}  typeof="text" className="w-full bg-gray-50 border focus:outline-none  border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5" placeholder="Title.." />
+        }}  typeof="text" className="w-full m-0 bg-gray-50 border focus:outline-none  border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5" placeholder="Title.." />
       </div>
     </div>
     <TextEditor onChange={(e)=>{
@@ -32,7 +32,7 @@ export const Publish = () => {
         }
       });
       navigate(`/blog/${res.data.id}`)
-     }}  type="submit" className="inline-flex items-center  mx-3 mt-3 px-5 py-2.5 text-sm font-medium          text-center text-white bg-blue-700 rounded-lg focus:ring-4 ">
+     }}  type="submit" className="inline-flex items-center  mx-3 mt-3 px-5 py-2.5 text-sm font-medium  text-center text-white bg-blue-700 rounded-lg focus:ring-4 ">
          Publish post
      </button>
 
@@ -41,7 +41,7 @@ export const Publish = () => {
 }
 
 function TextEditor({onChange}:{onChange:(e: ChangeEvent<HTMLTextAreaElement>)=>void}){
-  return  <div className="mt-2">
+  return  <div className="mt-8 border-t border-l w-11/12">
      <div className="w-full mb-4">
          <div className="flex items-center justify-between px-3 py-2 border-b">
          <div className="px-4 py-2 bg-white rounded-b-lg w-full">
