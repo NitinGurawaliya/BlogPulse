@@ -29,6 +29,11 @@ export const Blog = () => {
       <div>
           <SingleBlogSkeleton />
           <CommentSkeleton />
+          <CommentSkeleton />
+          <CommentSkeleton />
+          <CommentSkeleton />
+          <CommentSkeleton />
+
       </div>
     );
   }
