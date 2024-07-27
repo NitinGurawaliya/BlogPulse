@@ -79,10 +79,10 @@ export const Comment = ({ postId, comments, onCommentPosted }: CommentProps) => 
             <footer className="flex justify-between items-center mb-2">
               <div className="flex items-center">
                 <p className="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
-                <Avatars name={comment.user.name} />
+                <Avatars  name={comment.user.name} />
                   {comment.user.name}
-                </p>
-                <p className="text-sm mr-2 text-gray-600">
+                </p>  
+                <p className="text-sm mx-5 text-gray-600">
                   <time title="March 12th, 2022">Mar. 12, 2022</time>
                 </p>
               </div>
