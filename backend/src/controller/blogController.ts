@@ -158,7 +158,7 @@ export async function addComment (c:Context) {
     const prisma = new PrismaClient({
       datasourceUrl:c.env.DATABASE_URL
     }).$extends(withAccelerate())
-  
+
     const postId  = c.req.param("id")
     const userId = c.get("userId");
     const {content} = await c.req.json();
