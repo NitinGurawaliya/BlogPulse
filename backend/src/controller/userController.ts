@@ -84,7 +84,43 @@ export async function signin(c:Context){
   
     } catch (error) {
       
+    }   
     }
-  
+    export async function getProfile(c: Context) {
+      const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate());
     
+      try {
+        const userId = c.get("userId");
+        const res = await prisma.user.findFirst({
+          where: {
+            id: Number(userId),
+          },
+          include: {
+            blogs: true,
+          },
+        });
+    
+        if (res == null) {
+          return c.json({ msg: "User not found" });
+        } else {
+          return c.json({
+            user: {
+              id: res.id,
+              name: res.name,
+              username: res.username,
+              password: res.password,
+              blogs: res.blogs,
+            },
+          });
+        }
+      } catch (error) {
+        console.error(error); // Log the error for debugging purposes
+        c.status(400);
+        return c.json({ msg: "Error fetching user details" });
+      } finally {
+        await prisma.$disconnect(); // Ensure the PrismaClient is properly disconnected
+      }
     }
+    
