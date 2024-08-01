@@ -1,7 +1,8 @@
 import { Context } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { createBlogSchema,updateBlogSchema } from "@nitin2024/medium-common"
+// import { createBlogSchema,updateBlogSchema } from "@nitin2024/medium-common"
+import { createBlogSchema,updateBlogSchema } from "../../../common/src/index";
 
 
 export async function createBlog(c:Context){
@@ -9,7 +10,10 @@ export async function createBlog(c:Context){
         const prisma = new PrismaClient({
           datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate()) 
-      const body = await  c.req.json()
+
+      const body = await c.req.json()
+
+
       const {success} = createBlogSchema.safeParse(body)
       if(!success){
         return c.json("Invalid inputs")
@@ -17,16 +21,28 @@ export async function createBlog(c:Context){
       const authorId = c.get("userId")
     
      try {
+      const tagNames = body.tags.split(',').map((tag:string)=>tag.trim())
+
       const blog= await prisma.blog.create({
         data:{
           content:body.content,
           title:body.title,
-          authorId:parseInt(authorId)
+          authorId:parseInt(authorId),
+          tags:{
+              connectOrCreate:tagNames.map((tag:any)=>({
+                where:{tag},
+                create:{tag}
+              })),
+          }
+        },
+        include:{
+          tags:true
         }
       })
     
       return c.json({
         id:blog.id
+
       })
      } catch (error) {
       msg:"Error while creating the blog "
@@ -57,6 +73,7 @@ export async function editBlog(c:Context){
           data:{
             content:body.content,
             title:body.title,
+            tags:body.tags
           }
         })
         return c.json({
@@ -87,7 +104,8 @@ export async function getAllBlogs(c:Context){
             select:{
               name:true
             }
-          }
+          },
+          tags:true
         }
       })
 
@@ -137,9 +155,9 @@ export async function getBlogById(c:Context) {
               name:true
             }
           }
-
         }
-      }
+      },
+      tags:true
      }
     })
     return c.json({
@@ -177,5 +195,40 @@ export async function addComment (c:Context) {
       msg:"Comment made successfully"
     })
   
+}
+
+
+
+export async function deletePost(c: Context) {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    const id: number = Number(c.req.param('id'));
+     
+    const isPostExist = await prisma.blog.findFirst({
+      where: {
+        id: id,
+        authorId:c.get("userId")  
+      },
+    });
+
+    if (isPostExist == null) {
+      return c.body('Post does not exists');
+    }
+
+    const res = await prisma.blog.delete({
+      where: {
+        id: id,
+        authorId: c.get('userId'),
+      },
+    });
+    return c.json({
+      message: 'post deleted',
+    });
+  } catch (error) {
+    return c.json({ msg: `Internal server error: ${error}` }, 500);
+  }
 }
 
