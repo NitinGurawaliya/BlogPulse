@@ -1,6 +1,6 @@
 
 import {Hono} from "hono"
-import { addComment, createBlog, editBlog, getAllBlogs, getBlogById } from "../controller/blogController"
+import { addComment, createBlog, deletePost, editBlog, getAllBlogs, getBlogById } from "../controller/blogController"
 import { authMiddleware } from "../middleware/user"
 
  export const blogRouter  = new Hono<{
@@ -19,3 +19,4 @@ blogRouter.post('/',authMiddleware,createBlog )
 blogRouter.put('/',authMiddleware,editBlog)
 blogRouter.get('/:id',authMiddleware,getBlogById)
 blogRouter.post("/comment/:id",authMiddleware,addComment)
+blogRouter.delete("/post/:id",authMiddleware,deletePost)
