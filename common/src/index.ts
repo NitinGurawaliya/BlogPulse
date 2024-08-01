@@ -17,14 +17,15 @@ export const signinSchema = z.object({
 export const createBlogSchema = z.object({
     title:z.string(),
     content:z.string(),
-
+    tags:z.string()
 })
 
 //updateBlog schema
 export const updateBlogSchema = z.object({
     title:z.string(),
     content:z.string(),
-    id:z.number()
+    id:z.number(),
+    tags:z.string()
 })
 
 export type SignupInput = z.infer<typeof signupSchema>
