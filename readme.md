@@ -1,4 +1,4 @@
-# Blogging Website
+# BlogPulse
 
 This is a blogging platform where users can get blogs in bulk, publish posts, edit blogs, and use tags on particular blog posts. The project consists of a backend built using TypeScript with the HonoJS framework for Cloudflare Workers (serverless backends) and a frontend built using Tailwind CSS, ReactJS, and TypeScript. It also includes a common folder with all the Zod types published on npm.
 
