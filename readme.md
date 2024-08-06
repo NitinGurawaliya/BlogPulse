@@ -21,7 +21,7 @@ This is a blogging platform where users can get blogs in bulk, publish posts, ed
 1. **Clone the repository**
 
     ```sh
-    git clone [https://github.com/NitinGurawaliya/blogging-website.git](https://github.com/NitinGurawaliya/medium)
+    git clone git@github.com:NitinGurawaliya/medium.git
     cd medium/backend
     ```
 
