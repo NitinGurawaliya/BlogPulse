@@ -43,7 +43,7 @@ export const Comment = ({ postId, comments, onCommentPosted }: CommentProps) => 
         },
       });
 
-      onCommentPosted(updatedBlog.data.blog); // Notify parent component
+      onCommentPosted(updatedBlog.data.blog);
     } catch (error) {
       console.error("Error posting comment:", error);
     }
