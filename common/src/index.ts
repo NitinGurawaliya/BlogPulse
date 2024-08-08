@@ -15,9 +15,9 @@ export const signinSchema = z.object({
 
 //createBlog schema
 export const createBlogSchema = z.object({
-    title:z.string(),
-    content:z.string(),
-    tags:z.string()
+    title: z.string().min(1, 'Title is required'),
+    content: z.string().min(1, 'Content is required'),
+    tags: z.array(z.string().min(1, 'Tag cannot be empty')).nonempty('At least one tag is required'),
 })
 
 //updateBlog schema
@@ -25,7 +25,7 @@ export const updateBlogSchema = z.object({
     title:z.string(),
     content:z.string(),
     id:z.number(),
-    tags:z.string()
+    tags:z.array(z.string())
 })
 
 export type SignupInput = z.infer<typeof signupSchema>
