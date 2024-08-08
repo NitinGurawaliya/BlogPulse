@@ -38,7 +38,7 @@ export const Blogs = () => {
               title={blog.title}
               content={blog.content}
               publishedDate={"23 July, 2024"}
-            />
+              category={blog.tags.slice(0, 1).map(tag => tag.tag)}             />
           ))}
         </div>
       </div>
