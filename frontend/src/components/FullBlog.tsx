@@ -40,8 +40,7 @@ export const FullBlog = ({ blog }: { blog: blog }) => {
            {blog.tags.map((tag)=>(
             <div
             key={tag.id}
-            className="text-black h-auto w-auto p-2 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out flex items-center justify-center"
-          >
+            className="text-black border-black border-y-1	 h-auto w-auto p-2 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-2xl transition-shadow duration-300 ease-in-out flex items-center justify-center">
             {tag.tag}
           </div>
            ))}
