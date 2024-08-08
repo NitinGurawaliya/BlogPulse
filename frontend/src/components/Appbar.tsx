@@ -5,8 +5,8 @@ import Writelogo from "../assets/Writelogo";
 export const Appbar = () => {
   return (
     <div className="border-b py-4 flex justify-between items-center px-10">
-      <Link to={"/blogs"} className="font-bold text-2xl cursor-pointer">
-        Medium
+      <Link to={"/blogs"} className="font-bold mx-8 sm:mx-0 text-2xl cursor-pointer">
+        BlogPulse
       </Link>
       <div className="flex items-center gap-4">
         <Link to={"/publish"}>
