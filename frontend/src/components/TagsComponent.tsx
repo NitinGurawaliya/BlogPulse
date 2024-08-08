@@ -1,22 +1,8 @@
-// export const TagsComponent = () => {
-//   return (
-//     <div className="bg-slate-800 py-4">
-//       <div className="overflow-x-auto pb-2 hide-scroll-bar">
-//         <div className="flex flex-nowrap">
-//           {/* First item with minimal left margin */}
-//           <div className="inline-block ml-8">
-//             <div className="text-white p-2 h-9 max-w-xs overflow-hidden rounded-lg shadow-md bg-slate-800 hover:shadow-xl transition-shadow duration-300 ease-in-out text-md flex items-center justify-center">
-//               Hello
-//             </div>
-//           </div>
 
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 
-import { useRef } from 'react';
+import axios from 'axios';
+import { useEffect, useRef } from 'react';
+import { BACKEND_URL } from '../config';
 
 export const TagsComponent = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -40,6 +26,15 @@ export const TagsComponent = () => {
       });
     }
   };
+
+
+  useEffect(()=>{
+     axios.get(`${BACKEND_URL}/api/v1/tag/tags`,{
+      
+     })
+
+  },[])
+
 
   return (
     <div className="bg-slate-800 py-4 relative">
