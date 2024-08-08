@@ -12,18 +12,7 @@ export const FullBlog = ({ blog }: { blog: blog }) => {
             <div className="text-5xl font-extrabold">
               {blog.title}
             </div>
-            <div className="pt-2 text-slate-500">
-              posted on 2nd july,2024
-            </div>
-            <div className="pt-4">
-              {blog.content}
-            </div>
-          </div>
-          <div className="col-span-4">
-            <div className="text-slate-600 text-lg">
-              Author
-            </div>
-            <div className="flex items-start">
+            <div className="flex mt-8  items-start">
               <div className="pt-3">
                 <Avatars name={blog.author.name || "Anonymous"} />
               </div>
@@ -35,6 +24,27 @@ export const FullBlog = ({ blog }: { blog: blog }) => {
                   Random catch phrase about the author ability to grab user attention
                 </div>
               </div>
+            </div>
+            <div className="pt-2 text-slate-500">
+              posted on 2nd july,2024
+            </div>
+            <div className="pt-4 mt-7">
+              {blog.content}
+            </div>
+          </div>
+          <div className="col-span-4 pl-10 ">
+            <div className="font-bold text-3xl">
+              Category
+            </div>
+            <div className="space-y-2">
+           {blog.tags.map((tag)=>(
+            <div
+            key={tag.id}
+            className="text-black h-auto w-auto p-2 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out flex items-center justify-center"
+          >
+            {tag.tag}
+          </div>
+           ))}
             </div>
           </div>
         </div>
