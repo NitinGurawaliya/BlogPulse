@@ -16,6 +16,10 @@ export interface blog {
         name: string;
       };
     }[];
+    tags:{
+      id:number,
+      tag:string
+    }[]
   }
   
 
