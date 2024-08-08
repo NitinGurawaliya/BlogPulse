@@ -42,6 +42,7 @@ model Comment{
   postId            Int 
   user              User @relation(fields: [userId],references: [id])
   post              Blog @relation(fields: [postId],references: [id])
+  createdAt         DateTime @default(now())
 
 }
 
