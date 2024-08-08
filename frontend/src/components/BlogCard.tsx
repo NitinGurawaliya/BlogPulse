@@ -6,6 +6,7 @@ interface BlogCardProps{
     content:string,
     publishedDate:string,
     id:number
+    category:string[]
 }
 
 export const BlogCard = ({
@@ -13,7 +14,8 @@ export const BlogCard = ({
     title,
     content,
     publishedDate,
-    id
+    id,
+    category
 }:BlogCardProps) => {
   return <Link to={`/blog/${id}`}>
         <div className="border-b justify-start p-14 md:p-6 pb-6 cursor-pointer w-screen max-w-screen-md border-slate-200">
@@ -40,6 +42,19 @@ export const BlogCard = ({
             <div className="text-sm font-thin pt-2  text-slate-500" >
                 {`${Math.ceil(content.length/100)} minute(s) read `}
             </div>
+            <div className="flex flex-wrap gap-2 pt-4">
+          {category.map((tag, index) => (
+            <button
+              key={index}
+            //   className="text-sm px-3 py-1 rounded-lg bg-black text-white font-bold hover:bg-gray-800 transition-all duration-300"
+            className="bg-gray-700 hover:bg-gray-500 text-white text-sm px-4 py-1  border rounded-full"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+            
+
     </div>
     </Link>
   
