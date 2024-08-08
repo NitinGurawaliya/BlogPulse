@@ -6,8 +6,15 @@ import { useNavigate } from "react-router-dom"
 
 export const Publish = () => {
   const [title,setTitle] = useState("")
+  const [tags,setTags] = useState<string[]>([])
   const [description,setDescription] = useState("")
   const navigate = useNavigate();
+
+  const handleTagsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    const tagsArray = input.split(",").map(tag => tag.trim());
+    setTags(tagsArray);
+  };
 
   return <div>
     <Appbar />
@@ -15,7 +22,10 @@ export const Publish = () => {
       <div className="max-w-screen-lg w-full">
         <input type="text " onChange={(e)=>{
           setTitle(e.target.value)
-        }}  typeof="text" className="w-full m-0 bg-gray-50 border focus:outline-none  border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5" placeholder="Title.." />
+        }}  typeof="text" className="w-full my-4 bg-gray-50 border focus:outline-none  border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5" placeholder="Title.." />
+
+<input type="text " onChange={handleTagsChange}  typeof="text" className="w-full m-0 bg-gray-50 border focus:outline-none  border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5" placeholder="Enter tags separated by commas" />
+
       </div>
     </div>
     <TextEditor onChange={(e)=>{
@@ -25,6 +35,7 @@ export const Publish = () => {
     <button onClick={async ()=>{
       const res = await axios.post(`${BACKEND_URL}/api/v1/blog`,{
         title,
+        tags,
         content:description
       },{
         headers:{
