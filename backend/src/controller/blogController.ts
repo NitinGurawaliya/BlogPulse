@@ -2,92 +2,107 @@ import { Context } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 // import { createBlogSchema,updateBlogSchema } from "@nitin2024/medium-common"
-import { createBlogSchema,updateBlogSchema } from "../../../common/src/index";
+import {createBlogSchema,updateBlogSchema } from "../../../common/src/index";
 
 
-export async function createBlog(c:Context){
+export async function createBlog(c: Context) {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
 
-        const prisma = new PrismaClient({
-          datasourceUrl: c.env.DATABASE_URL,
-      }).$extends(withAccelerate()) 
+  const body = await c.req.json();
 
-      const body = await c.req.json()
+  // Validate the request body against the schema
+  const result = createBlogSchema.safeParse(body);
+  if (!result.success) {
+    // Extract validation errors and send a detailed response
+    const errors = result.error.format();
+    console.log(errors);
+    return c.json({ msg: "Enter all inputs correctly", errors }, 400);
+  }
 
+  const authorId = c.get("userId");
 
-      const {success} = createBlogSchema.safeParse(body)
-      if(!success){
-        return c.json("Invalid inputs")
-      }
-      const authorId = c.get("userId")
-    
-     try {
-      const tagNames = body.tags.split(',').map((tag:string)=>tag.trim())
+  try {
+    const tagNames = body.tags.map((tag: string) => tag.trim());
 
-      const blog= await prisma.blog.create({
-        data:{
-          content:body.content,
-          title:body.title,
-          authorId:parseInt(authorId),
-          tags:{
-              connectOrCreate:tagNames.map((tag:any)=>({
-                where:{tag},
-                create:{tag}
-              })),
-          }
+    const blog = await prisma.blog.create({
+      data: {
+        content: body.content,
+        title: body.title,
+        authorId: parseInt(authorId),
+        tags: {
+          connectOrCreate: tagNames.map((tag: string) => ({
+            where: { tag },
+            create: { tag },
+          })),
         },
-        include:{
-          tags:true
-        }
-      })
-    
-      return c.json({
-        id:blog.id
+      },
+      include: {
+        tags: true,
+      },
+    });
 
-      })
-     } catch (error) {
-      msg:"Error while creating the blog "
-            console.log("Error in creating blog ",error)
-
-     }
-    
-    }
-
-
-export async function editBlog(c:Context){
-    const prisma = new PrismaClient({
-      datasourceUrl:c.env.DATABASE_URL
-    }).$extends(withAccelerate())
-
-
-    const  body = await c.req.json()
-
-    const {success} = updateBlogSchema.safeParse(body)
-    if(!success){
-      return c.json("Invalid inputs")
-    }
-      try {
-        const blog = await prisma.blog.update({
-          where:{
-            id:body.id
-          },
-          data:{
-            content:body.content,
-            title:body.title,
-            tags:body.tags
-          }
-        })
-        return c.json({
-          id:blog.id,
-          blog
-        })
-
-      } catch (error) {
-        return c.json({
-          msg:"Error while editing the blog "
-        })
-      }
-        
+    return c.json({
+      id: blog.id,
+      content: blog.content,
+      title: blog.title,
+      tags: blog.tags.map(tag => tag.tag)
+    });
+  } catch (error) {
+    console.log("Error in creating blog ", error);
+    return c.json({ msg: "Error while creating the blog" }, 500);
+  } finally {
+    await prisma.$disconnect();
+  }
 }
+
+
+export async function editBlog(c: Context) {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const body = await c.req.json();
+
+  const { success, error } = updateBlogSchema.safeParse(body);
+  if (!success) {
+    console.log(error); // Log the validation error
+    return c.json({ msg: "Invalid inputs" }, 400);
+  }
+
+  try {
+    const blog = await prisma.blog.update({
+      where: {
+        id: body.id,
+      },
+      data: {
+        content: body.content,
+        title: body.title,
+        tags: {
+          connectOrCreate: body.tags.map((tag: string) => ({
+            where: { tag },
+            create: { tag },
+          })),
+        },
+      },
+      include: {
+        tags: true,
+      },
+    });
+
+    return c.json({
+      id: blog.id,
+      blog,
+    });
+  } catch (error) {
+    console.log("Error in editing blog:", error); // Log the error for debugging
+    return c.json({ msg: "Error while editing the blog" }, 500);
+  } finally {
+    await prisma.$disconnect(); // Ensure the PrismaClient is properly disconnected
+  }
+}
+
 
 
 export async function getAllBlogs(c:Context){
@@ -148,13 +163,7 @@ export async function getBlogById(c:Context) {
       comment:{
         select:{
           id:true,
-          content:true,
-          userId:true,
-          user:{
-            select:{
-              name:true
-            }
-          }
+         
         }
       },
       tags:true
