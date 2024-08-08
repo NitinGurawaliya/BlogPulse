@@ -163,7 +163,12 @@ export async function getBlogById(c:Context) {
       comment:{
         select:{
           id:true,
-         
+          content:true,
+          user:{
+            select:{
+              name:true
+            }
+          }    
         }
       },
       tags:true
@@ -198,6 +203,7 @@ export async function addComment (c:Context) {
         content,    
       },
     });
+
   
     return c.json({
       comment,
