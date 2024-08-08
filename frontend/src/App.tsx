@@ -4,6 +4,8 @@ import {Signin} from "./pages/Signin"
 import {Blog} from "./pages/Blog"
 import { Blogs } from "./pages/Blogs"
 import { Publish } from "./components/Publish"
+// index.js or App.js
+import './index.css'; // Adjust the path according to your setup
 
 
 const App = () => {
