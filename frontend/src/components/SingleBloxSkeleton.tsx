@@ -18,11 +18,10 @@ export const SingleBlogSkeleton = () => {
           </div>
           <div className="col-span-4">
             <div className="text-slate-600 text-lg mb-4">
-              Author
             </div>
             <div className="flex items-start">
               <div className="pt-3">
-                <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+                <div className="w-28 h-10 ml-5 rounded-md px-6 bg-gray-200 "></div>
               </div>
               <div className="pl-3">
                 <div className="h-6 bg-gray-200 rounded mb-2 w-2/3"></div>
