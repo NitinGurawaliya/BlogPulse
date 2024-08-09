@@ -8,7 +8,6 @@ export const Publish = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState<File | null>(null);
   const navigate = useNavigate();
 
   const handleTagsChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,29 +16,21 @@ export const Publish = () => {
     setTags(tagsArray);
   };
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
-  };
-
   const handlePublish = async () => {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("tags", tags.join(","));
-    formData.append("content", description);
-    if (image) {
-      formData.append("image", image);
-    }
+    const requestData = {
+      title,
+      tags,
+      content: description,
+    };
 
     try {
       const res = await axios.post(
         `${BACKEND_URL}/api/v1/blog`,
-        formData,
+        requestData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
+            Authorization: `${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -68,13 +59,6 @@ export const Publish = () => {
             onChange={handleTagsChange}
             className="w-full m-0 bg-gray-50 border focus:outline-none border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5"
             placeholder="Enter tags separated by commas"
-          />
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full my-4 bg-gray-50 border focus:outline-none border-gray-300 text-gray-800 text-sm rounded-lg block p-2.5"
           />
         </div>
       </div>
