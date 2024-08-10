@@ -8,10 +8,12 @@
     "@prisma/client": "^5.16.2",
     "@prisma/extension-accelerate": "^1.1.0",
     "hono": "^4.4.2",
+    "multer": "^1.4.5-lts.1",
     "prisma": "^5.16.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
+    "@types/multer": "^1.4.11",
     "wrangler": "^3.57.2"
   }
 }
