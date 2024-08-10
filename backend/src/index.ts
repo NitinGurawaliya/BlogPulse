@@ -5,6 +5,7 @@ import { Hono } from 'hono'
 
 import { cors } from 'hono/cors'
 import { tagRouter } from './router/tag.routes'
+import { likesRouter } from './router/likes.routes'
 
 
 const app = new Hono<{
@@ -20,6 +21,7 @@ app.use('/api/*', cors())
 app.route("/api/v1/user",userRouter)
 app.route("/api/v1/blog",blogRouter)
 app.route("/api/v1/tag",tagRouter)
+app.route("/api/v1/likes",likesRouter)
 
 
 
