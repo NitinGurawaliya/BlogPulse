@@ -18,5 +18,8 @@ blogRouter.get('/bulk',authMiddleware,getAllBlogs)
 blogRouter.post('/',authMiddleware,createBlog )
 blogRouter.put('/',authMiddleware,editBlog)
 blogRouter.get('/:id',authMiddleware,getBlogById)
+
+
 blogRouter.post("/comment/:id",authMiddleware,addComment)
+
 blogRouter.delete("/:id",authMiddleware,deletePost)
