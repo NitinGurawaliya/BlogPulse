@@ -1,6 +1,7 @@
 import { Appbar } from "./Appbar"
 import { blog } from "../hooks"
 import { Avatars } from "./BlogCard"
+import LikeDislikeButton from "./LikesDisklike"
 
 export const FullBlog = ({ blog }: { blog: blog }) => {
   return (
@@ -24,10 +25,14 @@ export const FullBlog = ({ blog }: { blog: blog }) => {
                   Random catch phrase about the author ability to grab user attention
                 </div>
               </div>
+           
             </div>
             <div className="pt-2 text-slate-500">
               posted on 2nd july,2024
             </div>
+            <div className="py-5 px-50">
+                  <LikeDislikeButton postId={blog.id}  />
+                </div>
             <div className="pt-4 mt-7">
               {blog.content}
             </div>
