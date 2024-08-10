@@ -37,6 +37,7 @@ model Blog{
   tags              Tags[]
   likes             LikedBlog[]
   dislikes          DislikedBlog[]
+  pictureUrl        String?  
 }
 
 model Comment{
