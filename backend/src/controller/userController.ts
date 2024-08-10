@@ -8,12 +8,6 @@ import { sign } from 'hono/jwt'
 import { signupSchema } from "@nitin2024/medium-common"
 import { signinSchema } from "@nitin2024/medium-common"
 
-export const userRouter = new Hono<{
-    Bindings:{
-            DATABASE_URL:string,
-            JWT_SECRET:string
-    }
-}>()
 
 export async function signup(c:Context){
    
