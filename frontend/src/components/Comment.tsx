@@ -13,7 +13,7 @@ interface CommentProps {
       name: string;
     };
   }[];
-  onCommentPosted: (updatedBlog: blog) => void; // Callback to update blog state
+  onCommentPosted: (updatedBlog: blog) => void; 
 }
 
 export const Comment = ({ postId, comments, onCommentPosted }: CommentProps) => {
