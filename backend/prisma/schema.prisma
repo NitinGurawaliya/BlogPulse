@@ -21,6 +21,8 @@ model User{
   password String
   blogs   Blog[]
   comment Comment[]
+  likes  LikedBlog[]
+  dislikes   DislikedBlog[]
 }
 
 model Blog{
@@ -33,6 +35,8 @@ model Blog{
   comment           Comment[]
   createdAt         DateTime @default(now())
   tags              Tags[]
+  likes             LikedBlog[]
+  dislikes          DislikedBlog[]
 }
 
 model Comment{
@@ -43,7 +47,6 @@ model Comment{
   user              User @relation(fields: [userId],references: [id])
   post              Blog @relation(fields: [postId],references: [id])
   createdAt         DateTime @default(now())
-
 }
 
 model Tags {
@@ -51,3 +54,24 @@ model Tags {
   tag String @unique
   post Blog[]
 }
+
+model LikedBlog{
+  id            Int       @id @default(autoincrement())
+  user          User      @relation(fields: [userId],references: [id])
+  userId        Int
+  post          Blog      @relation(fields: [postId],references: [id])
+  postId        Int
+
+  @@unique([userId,postId])
+}
+
+model DislikedBlog{
+  id      Int        @id @default(autoincrement())
+  user    User        @relation(fields: [userId],references: [id])
+  userId  Int
+  post  Blog      @relation(fields: [postId],references: [id])
+  postId  Int 
+
+  @@unique([userId,postId])
+}
+
