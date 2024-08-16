@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Avatars } from "./BlogCard";
 import Writelogo from "../assets/Writelogo";
-
+import SimpleAvatar from ./SimpleAvatar
 export const Appbar = () => {
   return (
     <div className="border-b py-4 flex justify-between items-center px-10">
@@ -17,7 +17,7 @@ export const Appbar = () => {
             <Writelogo /> Write
           </button>
         </Link>
-        <Avatars name="nitin" />
+        <SimpleAvatar />
       </div>
     </div>
   );
