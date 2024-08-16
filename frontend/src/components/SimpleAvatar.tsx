@@ -1,9 +1,11 @@
 import  { useState, useRef, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';  // Import the icon
+import { useNavigate } from 'react-router-dom';
 
 export function SimpleAvatar() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate()
 
   // Close the dropdown when clicking outside of it
   useEffect(() => {
@@ -21,9 +23,12 @@ export function SimpleAvatar() {
     <div className="relative inline-flex items-center">
       <div
         onClick={() => setOpen(!open)}
-        className="w-12 h-12 flex items-center justify-center text-gray-700 cursor-pointer"
+        className="w-12 h-12 flex items-center m-2 justify-center text-gray-700 cursor-pointer"
       >
+        <div >
         <FaUserCircle size={38} />  {/* Use the icon here */}
+
+        </div>
       </div>
 
       {open && (
@@ -40,11 +45,14 @@ export function SimpleAvatar() {
             </li>
             <li>
               <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
-                Setting
+                My Blogs 
               </a>
             </li>
             <li>
-              <a href="#" className="block px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <a onClick={()=>{
+                localStorage.removeItem("token")
+                navigate("/signin")
+              }} className="block px-4 py-2 cursor-pointer text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                 Logout
               </a>
             </li>
